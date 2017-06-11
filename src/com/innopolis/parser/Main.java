@@ -1,30 +1,27 @@
-package com.innopolis;
+package com.innopolis.parser;
 
-import com.innopolis.parser.ParserEngine;
-
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
+    /**
+     * Вариант 1
+     * Необходимо разработать программу, которая получает на вход список ресурсов, содержащих текст,
+     * и считает общее количество вхождений (для всех ресурсов) каждого слова. Каждый ресурс должен
+     * быть обработан в отдельном потоке, текст не должен содержать инностранных символов, только кириллица,
+     * знаки препинания и цифры. Отчет должен строиться в режиме реального времени, знаки препинания и цифры
+     * в отчет не входят. Все ошибки должны быть корректно обработаны, все API покрыто модульными тестами
+     * @param args
+     */
     public static void main(String[] args) {
         List<File> files = new ArrayList<>();
-        files.add(new File("file1.txt"));
-
-        try (BufferedReader br = new BufferedReader(new FileReader(new File("file1.txt")))) {
-            String current;
-            while ((current = br.readLine()) != null){
-                System.out.println(current);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println();
-        ParserEngine parserEngine = new ParserEngine();
-
-
+        files.add(new File("./file1.txt"));
+        files.add(new File("./file2.txt"));
+        files.add(new File("./file3.txt"));
+        File resultFile = new File("./result.txt");
+        ParserManager manager = new ParserManager(files, " ", resultFile);
+        manager.start();
     }
 }
