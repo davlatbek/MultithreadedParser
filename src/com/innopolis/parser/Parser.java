@@ -13,7 +13,6 @@ public class Parser implements Runnable, Parsable {
     private String id;
     private File resultFile;
     private PrintWriter printWriter;
-    private volatile boolean running = true;
 
     Parser(File file, Map<String, Integer> wordToNumberOfOccurences, String splitBy, String id, File resultFile) {
         this.file = file;
@@ -44,7 +43,7 @@ public class Parser implements Runnable, Parsable {
                 synchronized (wordToNumberOfOccurences) {
                     for (String word : lineSplitted) {
                         if (containsLatinLetter(word)) {
-                            System.out.println("Contains english letters!");
+                            System.out.println("Stopped! " + this.id + "Contains english letters!");
                             return;
                         }
                         if (word != null) {
