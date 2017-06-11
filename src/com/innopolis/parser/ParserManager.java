@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static java.lang.System.exit;
+
 /**
  * Created by davlet on 6/11/17.
  */
@@ -20,16 +22,31 @@ public class ParserManager {
 
     public ParserManager(List<File> files, String splitBy, File resultFile){
         parsers = new ArrayList<>();
-        this.files = files;
+        if (checkFiles(files))
+            this.files = files;
+        else {
+            System.out.println("One of specified files not found! Please, check paths!");
+            exit(0);
+        }
         this.wordToNumberOfOccurences = new HashMap<>();
         this.splitBy = splitBy;
         this.resultFile = resultFile;
     }
 
+    public boolean checkFiles(List<File> files){
+        for (File file : files){
+            if (file.isDirectory() || !file.exists()){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void start() {
-        String[] strings = new String[] {"1 Thread ", "2 Thread ", "3 Thread "};
+        List<String> threadNames = new ArrayList<>();
         for (int i = 0; i < files.size(); i++){
-            parsers.add(new Parser(files.get(i), this.wordToNumberOfOccurences, splitBy, strings[i], resultFile));
+            threadNames.add("Thread " + i + " ");
+            parsers.add(new Parser(files.get(i), this.wordToNumberOfOccurences, splitBy, threadNames.get(i), resultFile));
         }
         ExecutorService executorService = Executors.newFixedThreadPool(files.size());
         for (Parser parser : parsers){
