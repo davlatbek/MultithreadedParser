@@ -21,7 +21,7 @@ public class Parser implements Runnable, Parsable {
         this.id = id;
         this.resultFile = resultFile;
         try {
-            printWriter = new PrintWriter(resultFile, "UTF-8");
+            printWriter = new PrintWriter(resultFile, "UTF-16");
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
