@@ -1,4 +1,6 @@
 #ignore these files
 .idea/*
 MultithreadedParser.iml
+out/*
+
 
