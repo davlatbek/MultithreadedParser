@@ -40,17 +40,18 @@ public class Parser implements Runnable, Parsable {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(this.file));
             while ((currentLine = bufferedReader.readLine()) != null) {
                 lineSplitted = currentLine.split(splitBy);
-                synchronized (wordToNumberOfOccurences) {
+
                     for (String word : lineSplitted) {
                         if (containsLatinLetter(word)) {
                             System.out.println("Stopped! " + this.id + "Contains english letters!");
                             return;
                         }
                         if (word != null) {
-                            putInHashMap(word);
+                            synchronized (wordToNumberOfOccurences) {
+                                putInHashMap(word);
+                            }
                             System.out.println(this.id + "Word: " + word + " #: " + wordToNumberOfOccurences.get(word));
                             writeToFile(this.id + "Word: " + word + " #: " + wordToNumberOfOccurences.get(word));
-                        }
                     }
                 }
             }
