@@ -16,7 +16,7 @@ import static java.lang.System.exit;
 public class ParserManager {
     private List<Parser> parsers;
     private List<File> files;
-    private Map<String, Integer> wordToNumberOfOccurences;
+    public Map<String, Integer> wordToNumberOfOccurences;
     private String splitBy;
     private File resultFile;
 

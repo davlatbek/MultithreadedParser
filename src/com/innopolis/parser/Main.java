@@ -17,10 +17,10 @@ public class Main {
      */
     public static void main(String[] args) {
         List<File> files = new ArrayList<>();
-        files.add(new File("./file1.txt"));
-        files.add(new File("./file2.txt"));
-        files.add(new File("./file3.txt"));
-        File resultFile = new File("./result.txt");
+        files.add(new File("./src/com/innopolis/parser/file1.txt"));
+        files.add(new File("./src/com/innopolis/parser/file2.txt"));
+        files.add(new File("./src/com/innopolis/parser/file3.txt"));
+        File resultFile = new File("./src/com/innopolis/parser/result.txt");
         ParserManager manager = new ParserManager(files, " ", resultFile);
         manager.start();
     }
